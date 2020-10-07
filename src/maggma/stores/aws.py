@@ -304,7 +304,8 @@ class S3Store(Store):
             }
             fs, _ = wait(fs)
 
-            search_docs = [sdoc.result() for sdoc in fs]
+            # search_docs = [sdoc.result() for sdoc in fs]
+            search_docs = [{k: doc[k] for k in key} for doc in docs]
 
         # Use store's update to remove key clashes
         self.index.update(search_docs, key=self.key)
